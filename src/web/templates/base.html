@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Título Predeterminado{% endblock %}</title>
+</head>
+<body>
+    <div>
+        <h1>{% block header %}Encabezado Predeterminado{% endblock %}</h1>
+    </div>
+
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+
+    <div>
+        <p>&copy; 2024 Mi Sitio Web</p>
+    </div>
+</body>
+</html>
