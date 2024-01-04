@@ -12,6 +12,7 @@ class ChatView(MethodView):
 
     async def get(self):
         messages = await self._chat_service.get_chat_messages()
+        messages.reverse()
         return render_template("chat/chat.html", messages=messages)
 
     async def post(self):

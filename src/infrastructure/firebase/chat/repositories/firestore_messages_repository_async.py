@@ -14,7 +14,7 @@ class FirestoreMessagesRepositoryAsync(FirestoreGenericRepositoryAsync[Message, 
     async def get_n_latest_messages(self, n: int) -> list[Message]:
         docs_stream = self._firestore_client.collection('messages').order_by(
             'created_at',
-            direction=firestore.Query.ASCENDING
+            direction=firestore.Query.DESCENDING
         ).limit(n).stream()
         messages = []
         async for doc in docs_stream:

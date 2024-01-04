@@ -6,6 +6,7 @@ from src.domain.common.entities.base_entity import BaseEntity
 ID = TypeVar("ID")
 T = TypeVar("T", bound=BaseEntity)
 
+
 class GenericRepositoryAsync(ABC, Generic[T, ID]):
     @abstractmethod
     async def get_async(self, entity_id: ID) -> Optional[T]:
