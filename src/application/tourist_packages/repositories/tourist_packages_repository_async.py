@@ -16,4 +16,7 @@ class TouristPackagesRepositoryAsync(GenericRepositoryAsync[TouristPackage, str]
     async def get_packages_by_start_date(self, start_date: str) -> list[TouristPackage]:
         pass
 
+    @abstractmethod
+    async def get_by_name_async(self, name: str) -> TouristPackage:
+        pass
 # TODO: Implementar envio de datos

@@ -21,6 +21,20 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
             duration=package.duration,
             max_capacity=package.max_capacity,
             cost=package.cost,
-            start_date=datetime.strptime(package.start_date, '%Y-%m-%d'),
-            end_date=datetime.strptime(package.end_date, '%Y-%m-%d'),
+            start_date=package.start_date,
+            end_date=package.end_date
         ) for package in packages]
+
+    async def get_tourist_package_by_name(self, name: str) -> TouristPackagesResponseDto:
+        package = await self._tourist_packages_repository_async.get_by_name_async(name)
+
+        return TouristPackagesResponseDto(
+            name=package.name,
+            description=package.description,
+            destination_place=package.destination_place,
+            duration=package.duration,
+            max_capacity=package.max_capacity,
+            cost=package.cost,
+            start_date=package.start_date,
+            end_date=package.end_date
+        )

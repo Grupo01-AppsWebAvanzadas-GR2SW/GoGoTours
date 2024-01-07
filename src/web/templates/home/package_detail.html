@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block header %}
+    Home GoGoTours
+{% endblock %}
+
+{% block content %}
+    <div>
+        <p>Nombre: {{ package.name }}</p>
+            <p>Duración: {{ package.duration }}</p>
+            <p>Fecha de inicio: {{ package.start_date }}</p>
+    </div>
+{% endblock %}

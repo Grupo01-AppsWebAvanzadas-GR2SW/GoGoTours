@@ -45,3 +45,10 @@ class FirestoreTouristPackagesRepositoryAsync(FirestoreGenericRepositoryAsync[To
             package.id = doc.id
             packages.append(package)
         return packages
+
+    async def get_by_name_async(self, name: str) -> TouristPackage:
+        doc = await self._firestore_client.collection('tourist_packages').where('name', '==', name).get()
+        package = TouristPackage()
+        package.merge_dict(doc[0].to_dict())
+        package.id = doc[0].id
+        return package

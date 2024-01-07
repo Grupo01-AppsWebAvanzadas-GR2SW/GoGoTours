@@ -9,7 +9,19 @@
 {% endblock %}
 
 {% block content %}
-    <div>
-        "TEST-PAGE"
-    </div>
+    {% for package in packages %}
+
+        <div>
+            <p>Nombre: {{ package.name }}</p>
+            <p>Duración: {{ package.duration }}</p>
+            <p>Fecha de inicio: {{ package.start_date }}</p>
+        </div>
+
+        <a href="package_detail/{{ package.name }}"/>
+        <button tabindex="-1">
+        Más información
+        </button>
+        </a>
+
+    {% endfor %}
 {% endblock %}
