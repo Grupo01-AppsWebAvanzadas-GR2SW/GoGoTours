@@ -1,4 +1,3 @@
-
 from src.domain.chat.entities.message import Message
 from src.application.chat.services.chat_service_async import ChatServiceAsync
 from src.application.chat.dtos.send_message_request_dto import SendMessageRequestDto
