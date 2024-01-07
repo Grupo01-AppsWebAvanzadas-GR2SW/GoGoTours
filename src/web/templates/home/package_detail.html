@@ -10,8 +10,17 @@
 
 {% block content %}
     <div>
+        <p>ID: {{ package.id }}</p>
         <p>Nombre: {{ package.name }}</p>
-            <p>Duración: {{ package.duration }}</p>
-            <p>Fecha de inicio: {{ package.start_date }}</p>
+        <p>Duración: {{ package.duration }}</p>
+        <p>Fecha de inicio: {{ package.start_date }}</p>
     </div>
+
+    <form id="chat-form" method="post">
+        <button type="submit" id="send-button">
+            ¡Reserva ahora!
+        </button>
+    </form>
+
+
 {% endblock %}

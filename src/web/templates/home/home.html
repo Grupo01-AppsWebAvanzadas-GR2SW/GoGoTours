@@ -17,7 +17,7 @@
             <p>Fecha de inicio: {{ package.start_date }}</p>
         </div>
 
-        <a href="package_detail/{{ package.name }}"/>
+        <a href="{{ url_for('package_detail', name=package.name) }}">
             <button tabindex="-1">
                 Más información
             </button>

@@ -15,6 +15,7 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
         packages = await self._tourist_packages_repository_async.list_async()
 
         return [TouristPackagesResponseDto(
+            id=package.id,
             name=package.name,
             description=package.description,
             destination_place=package.destination_place,
@@ -29,6 +30,7 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
         package = await self._tourist_packages_repository_async.get_by_name_async(name)
 
         return TouristPackagesResponseDto(
+            id=package.id,
             name=package.name,
             description=package.description,
             destination_place=package.destination_place,
