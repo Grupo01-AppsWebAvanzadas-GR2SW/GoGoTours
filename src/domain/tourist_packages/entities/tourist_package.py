@@ -1,6 +1,7 @@
 from typing import Dict, Any
 from src.domain.common.entities.base_entity import BaseEntity
 
+
 class TouristPackage(BaseEntity[str]):
 
     def __init__(self, name: str = '',  description: str = '', destination_place: str = '', duration: int = 0,
