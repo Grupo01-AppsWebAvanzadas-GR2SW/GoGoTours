@@ -11,36 +11,37 @@
 {% block content %}
     {% for package in packages %}
 
-     <div class="container mt-5">
-        <div class="border p-4">
-            <div class="d-flex">
-                <!-- Espacio reservado para la imagen promocional -->
-                <div class="me-4" style="width: 100px; height: 100px; border: 1px solid #ccc;">
-                    <img src="{{ package.image }}" alt="Imagen promocional" width="150" height="100">
+        <div class="container mt-5">
+            <div class="border p-4">
+                <div class="d-flex">
+                    <!-- Espacio reservado para la imagen promocional -->
+                    <div class="me-4" style="width: 100px; height: 100px; border: 1px solid #ccc;">
+                        <img src="{{ package.image }}" alt="Imagen promocional" width="150" height="100">
+                    </div>
+
+
+                    <div>
+                        <p>Nombre: {{ package.name }}</p>
+                        <p>Duración: {{ package.duration }}</p>
+                        <p>Fecha de inicio: {{ package.start_date }}</p>
+                    </div>
                 </div>
 
-
-                <div>
-                    <p>Nombre: {{ package.name }}</p>
-                    <p>Duración: {{ package.duration }}</p>
-                    <p>Fecha de inicio: {{ package.start_date }}</p>
+                <div class="d-flex align-items-end">
+                    <a href="{{ url_for('package_detail', name=package.name) }}" class="button button--primary">
+                        Más información
+                    </a>
                 </div>
             </div>
-
-            <a href="{{ url_for('package_detail', name=package.name) }}" class="mt-3 d-block">
-                <button tabindex="-1" class="btn btn-primary">
-                    Más información
-                </button>
-            </a>
         </div>
-    </div>
+
 
     {% endfor %}
 
     <!-- If user is ADMIN  -->
-     <div class="d-flex align-items-end ">
-             <a href="addPackage" class=" button  button--primary">Añadir tour +</a>
-     </div>
+    <div class="d-flex align-items-end ">
+        <a href="addPackage" class=" button  button--primary">Añadir tour +</a>
+    </div>
 
 {% endblock %}
 
