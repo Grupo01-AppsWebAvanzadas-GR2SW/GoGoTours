@@ -18,8 +18,9 @@ class FirestoreMessagesRepositoryAsync(FirestoreGenericRepositoryAsync[Message, 
         ).limit(n).stream()
         messages = []
         async for doc in docs_stream:
+            message_dict = doc.to_dict()
+            message_dict["id"] = doc.id
             message = Message()
             message.merge_dict(doc.to_dict())
-            message.id = doc.id
             messages.append(message)
         return messages
