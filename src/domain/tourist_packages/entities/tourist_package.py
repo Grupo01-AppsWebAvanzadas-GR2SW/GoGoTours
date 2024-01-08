@@ -136,6 +136,7 @@ class TouristPackage(BaseEntity[str]):
         self._cost = source["cost"] if 'cost' in source else 0
         self._start_date = source["start_date"] if 'start_date' in source else ''
         self._end_date = source["end_date"] if 'end_date' in source else ''
+        self._image = source["image"] if 'image' in source else ''
 
     def to_dict(self) -> Dict[str, Any]:
         base_dict = super().to_dict()
@@ -147,4 +148,5 @@ class TouristPackage(BaseEntity[str]):
         base_dict["cost"] = self._cost
         base_dict["start_date"] = self._start_date
         base_dict["end_date"] = self._end_date
+        base_dict["image"] = self._image
         return base_dict
