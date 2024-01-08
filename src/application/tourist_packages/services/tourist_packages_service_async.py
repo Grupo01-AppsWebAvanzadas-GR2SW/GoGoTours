@@ -11,3 +11,7 @@ class TouristPackagesServiceAsync(ABC):
     @abstractmethod
     async def get_tourist_package_by_name(self, name: str) -> TouristPackagesResponseDto:
         pass
+
+    @abstractmethod
+    async def add_package(self, tourist_package: TouristPackagesResponseDto):
+        pass

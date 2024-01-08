@@ -2,7 +2,8 @@ from datetime import datetime
 from src.domain.tourist_packages.entities.tourist_package import TouristPackage
 from src.application.tourist_packages.services.tourist_packages_service_async import TouristPackagesServiceAsync
 from src.application.tourist_packages.dtos.tourist_packages_response_dto import TouristPackagesResponseDto
-from src.application.tourist_packages.repositories.tourist_packages_repository_async import TouristPackagesRepositoryAsync
+from src.application.tourist_packages.repositories.tourist_packages_repository_async import \
+    TouristPackagesRepositoryAsync
 from injector import inject
 
 
@@ -40,3 +41,28 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
             start_date=package.start_date,
             end_date=package.end_date
         )
+
+    async def add_package(self, tourist_package: TouristPackagesResponseDto):
+        await self._tourist_packages_repository_async.add_async(
+            TouristPackage(
+                name=tourist_package.name,
+                description=tourist_package.description,
+                destination_place=tourist_package.destination_place,
+                duration=tourist_package.duration,
+                max_capacity=tourist_package.max_capacity,
+                cost=tourist_package.cost,
+                start_date=tourist_package.start_date,
+                end_date=tourist_package.end_date
+            )
+        )
+
+
+
+
+
+
+
+
+
+
+
