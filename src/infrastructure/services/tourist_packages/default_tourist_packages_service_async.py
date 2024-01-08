@@ -44,6 +44,22 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
             image=package.image
         )
 
+    async def get_tourist_packages_by_id(self, id: str) -> TouristPackagesResponseDto:
+        package = await self._tourist_packages_repository_async.get_by_id_async(id)
+
+        return TouristPackagesResponseDto(
+            id=package.id,
+            name=package.name,
+            description=package.description,
+            destination_place=package.destination_place,
+            duration=package.duration,
+            max_capacity=package.max_capacity,
+            cost=package.cost,
+            start_date=package.start_date,
+            end_date=package.end_date
+        )
+
+
     async def add_package(self, tourist_package: TouristPackagesResponseDto):
         await self._tourist_packages_repository_async.add_async(
             TouristPackage(

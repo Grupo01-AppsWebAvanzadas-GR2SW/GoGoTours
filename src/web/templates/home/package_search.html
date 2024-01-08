@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Home
+    Resultados de busqueda
 {% endblock %}
 
 {% block header %}
@@ -9,16 +9,16 @@
 {% endblock %}
 
 {% block content %}
-    <div class="" style="--h5-font-size: 50">Paquetes Turisticos</div>
     {% for package in packages %}
 
-        <div class="container mt-5" >
+        <div class="container mt-5">
             <div class="border p-4">
                 <div class="d-flex">
                     <!-- Espacio reservado para la imagen promocional -->
                     <div class="me-4" style="width: 100px; height: 100px; border: 1px solid #ccc;">
                         <img src="{{ package.image }}" alt="Imagen promocional" width="150" height="100">
                     </div>
+
 
                     <div>
                         <label class="" ></label>
@@ -40,13 +40,4 @@
 
     {% endfor %}
 
-    <!-- If user is ADMIN  -->
-    <div class="d-flex align-items-end ">
-        <a href="addPackage" class=" button  button--primary">Añadir tour +</a>
-    </div>
-
-{% endblock %}
-
-{% block page %}
-    tours
 {% endblock %}
