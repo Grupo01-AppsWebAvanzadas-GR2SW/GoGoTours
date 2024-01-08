@@ -15,7 +15,6 @@ class PackageAddView(MethodView):
         return render_template("packagesManager/add_Package.html", packages=packages)
 
     async def post(self):
-        print(request.form.get("packageName"))
         package_name = request.form.get("packageName")
         package_description = request.form.get("packageDescription")
         package_destination = request.form.get("packageDestinationPlace")

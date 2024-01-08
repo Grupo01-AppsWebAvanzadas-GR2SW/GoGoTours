@@ -9,15 +9,15 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row d-flex justify-content-center">
-        <form id="add-package-form" method="post" class="form row d-flex align-items-center">
+    <div class="row d-flex ">
+        <form id="add-package-form" method="post" class="form col-12 d-flex align-items-center">
             <div class="row">
                 <label class="col-4 form__label" for="name">Nombre del tour:</label>
                 <input class="col-8 form__input" type="text" id="name" name="packageName" required/>
             </div>
             <div>
-                <label class="form__label" for="description">Descripción del tour:</label>
-                <input class="form__input" type="text" id="description" name="packageDescription" required/>
+                <label class="col-4 form__label" for="description">Descripción del tour:</label>
+                <input class="col-8 form__input" type="text" id="description" name="packageDescription" required/>
             </div>
             <div>
                 <label class="form__label" for="destination_place">Lugar de destino:</label>
@@ -32,7 +32,7 @@
                 <input class="form__input" type="number" step="1" id="max_capacity" name="packageMaxCapacity" required/>
             </div>
             <div>
-                <label class="form__label" for="cost">Costo del tour:</label>
+                <label class="form__label" for="cost">Costo del tour ($):</label>
                 <input class="form__input" step="0.01" type="number" id="cost" name="packageCost" required/>
             </div>
             <div>
@@ -43,9 +43,14 @@
                 <label class="form__label" for="end_date">Fecha final:</label>
                 <input class="form__input" type="date" id="end_date" name="packageEndDate" required/>
             </div>
+            <div>
+                <label class="form__label" for="end_date">Imágen (Url):</label>
+                <input class="form__input" type="url" id="url" name="packageUrl" required/>
+            </div>
             <button class="button button--primary" type="submit" id="send-button">Agregar tour</button>
         </form>
     </div>
+
 {% endblock %}
 
 {% block page %}

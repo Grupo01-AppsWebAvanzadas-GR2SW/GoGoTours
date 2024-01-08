@@ -12,3 +12,4 @@ class TouristPackagesRequestDto:
     cost: float
     start_date: datetime
     end_date: datetime
+    image: str
