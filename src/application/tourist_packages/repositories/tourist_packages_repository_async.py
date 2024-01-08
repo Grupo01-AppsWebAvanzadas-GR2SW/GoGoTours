@@ -20,6 +20,5 @@ class TouristPackagesRepositoryAsync(GenericRepositoryAsync[TouristPackage, str]
     async def get_by_name_async(self, name: str) -> TouristPackage:
         pass
 
-    # TODO: Implementar envio de datos
 
 

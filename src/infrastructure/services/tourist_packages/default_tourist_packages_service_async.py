@@ -24,7 +24,8 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
             max_capacity=package.max_capacity,
             cost=package.cost,
             start_date=package.start_date,
-            end_date=package.end_date
+            end_date=package.end_date,
+            image=package.image
         ) for package in packages]
 
     async def get_tourist_package_by_name(self, name: str) -> TouristPackagesResponseDto:
@@ -39,7 +40,8 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
             max_capacity=package.max_capacity,
             cost=package.cost,
             start_date=package.start_date,
-            end_date=package.end_date
+            end_date=package.end_date,
+            image=package.image
         )
 
     async def add_package(self, tourist_package: TouristPackagesResponseDto):
@@ -52,7 +54,8 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
                 max_capacity=tourist_package.max_capacity,
                 cost=tourist_package.cost,
                 start_date=tourist_package.start_date,
-                end_date=tourist_package.end_date
+                end_date=tourist_package.end_date,
+                image=tourist_package.image
             )
         )
 
