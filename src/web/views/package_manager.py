@@ -23,6 +23,7 @@ class PackageAddView(MethodView):
         package_cost = request.form.get("packageCost")
         package_start_Date = request.form.get("packageStateDate")
         package_end_Date = request.form.get("packageEndDate")
+        package_image = request.form.get("packageUrl")
 
         package_dto = TouristPackagesRequestDto(
             name=package_name,
@@ -32,8 +33,8 @@ class PackageAddView(MethodView):
             max_capacity=package_capacity,
             cost=package_cost,
             start_date=package_start_Date,
-            end_date=package_end_Date
-
+            end_date=package_end_Date,
+            image=package_image
         )
         await self._tourist_packages_service.add_package(package_dto)
         return redirect(url_for("home"))

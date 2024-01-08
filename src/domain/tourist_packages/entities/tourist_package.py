@@ -6,7 +6,7 @@ class TouristPackage(BaseEntity[str]):
 
     def __init__(self, name: str = '', description: str = '', destination_place: str = '', duration: int = 0,
                  max_capacity: int = 0, cost: float = 0, start_date: str = '', end_date: str = '', entity_id: str = '',
-                 image_url: str = ''):
+                 image: str = ''):
         super().__init__(entity_id)
         self._name = name
         self._description = description
@@ -16,7 +16,7 @@ class TouristPackage(BaseEntity[str]):
         self._cost = cost
         self._start_date = start_date
         self._end_date = end_date
-        self.image = image_url
+        self.image = image
 
     @property
     def image(self) -> str:
