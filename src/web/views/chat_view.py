@@ -11,12 +11,6 @@ class ChatView(MethodView):
         self._chat_service = chat_service
 
     async def get(self):
-        messages = await self._chat_service.get_chat_messages()
-        messages.reverse()
-        return render_template("chat/chat.html", messages=messages)
-
-    async def post(self):
-        message = request.form.get("message")
-        message_dto = SendMessageRequestDto(message=message)
-        await self._chat_service.send_message(message_dto)
-        return redirect(url_for("chat"))
+        user_id = request.args.get("user_id") or "123" # TODO: Get user id from session
+        conversations_summaries = await self._chat_service.get_user_summary_conversations_async(user_id)
+        return render_template("chat/chat.html", conversations_summaries=conversations_summaries)

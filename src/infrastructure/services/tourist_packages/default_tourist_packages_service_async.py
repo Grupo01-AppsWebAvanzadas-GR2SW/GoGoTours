@@ -60,7 +60,6 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
             end_date=package.end_date
         )
 
-
     async def add_package(self, tourist_package: TouristPackagesResponseDto):
         await self._tourist_packages_repository_async.add_async(
             TouristPackage(
@@ -92,6 +91,15 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
             package.image = updated_package.image
 
             await self._tourist_packages_repository_async.update_async(package)
+            return True
+        else:
+            return False
+
+    async def delete_package(self, package_delete: str):
+        package = await self._tourist_packages_repository_async.get_by_name_async(package_delete)
+
+        if package:
+            await self._tourist_packages_repository_async.delete_by_id_async(package.id)
             return True
         else:
             return False

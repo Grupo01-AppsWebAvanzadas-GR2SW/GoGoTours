@@ -22,3 +22,7 @@ class TouristPackagesServiceAsync(ABC):
     @abstractmethod
     async def edit_package(self, tourist_package: TouristPackagesResponseDto):
         pass
+
+    @abstractmethod
+    async def delete_package(self, name: str):
+        pass

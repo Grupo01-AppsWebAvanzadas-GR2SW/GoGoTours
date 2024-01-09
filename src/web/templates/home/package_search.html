@@ -7,27 +7,29 @@
 {% block header %}
     Search GoGoTours
     {% block head_tags %}
-        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/package.css')}}"/>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/package.css') }}"/>
     {% endblock %}
 {% endblock %}
 
 {% block content %}
 
+     <p class="package-title">Resultados encontrados</p>
     <div class="packages-container">
         {% for package in packages %}
             <div class="package-container">
+
                 <!-- Espacio reservado para la imagen promocional -->
                 <div class="package-image">
                     <img src="{{ package.image }}" alt="Imagen promocional" width="100%" height="100">
                 </div>
 
                 <div class="package-details">
-                    <label class=""></label>
                     <p><strong>Nombre:</strong> {{ package.name }}</p>
                     <p><strong>Destino:</strong> {{ package.destination_place }}</p>
                     <p><strong>Duración:</strong> {{ package.duration }} días</p>
                     <p><strong>Fecha de salida:</strong> {{ package.start_date }}</p>
                 </div>
+
 
                 <div class="package-button">
                     <a href="{{ url_for('package_detail', name=package.name) }}"
