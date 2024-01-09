@@ -7,7 +7,7 @@
 {% block header %}
     Home GoGoTours
     {% block head_tags %}
-        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/package.css') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/card.css') }}"/>
     {% endblock %}
 {% endblock %}
 
@@ -23,7 +23,6 @@
                 </div>
 
                 <div class="package-details">
-                    <label class=""></label>
                     <p><strong>Nombre:</strong> {{ package.name }}</p>
                     <p><strong>Destino:</strong> {{ package.destination_place }}</p>
                     <p><strong>Duración:</strong> {{ package.duration }} días</p>

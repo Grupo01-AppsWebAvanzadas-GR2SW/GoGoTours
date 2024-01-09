@@ -7,21 +7,20 @@
 {% block header %}
     Search GoGoTours
     {% block head_tags %}
-        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/package.css')}}"/>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/card.css') }}"/>
     {% endblock %}
 {% endblock %}
 
 {% block content %}
 
-    <div class="packages-container">
+    <div>
         {% for package in packages %}
-            <div class="package-container">
-                <!-- Espacio reservado para la imagen promocional -->
-                <div class="package-image">
+            <div>
+                <div>
                     <img src="{{ package.image }}" alt="Imagen promocional" width="100%" height="100">
                 </div>
 
-                <div class="package-details">
+                <div>
                     <label class=""></label>
                     <p><strong>Nombre:</strong> {{ package.name }}</p>
                     <p><strong>Destino:</strong> {{ package.destination_place }}</p>
@@ -29,7 +28,7 @@
                     <p><strong>Fecha de salida:</strong> {{ package.start_date }}</p>
                 </div>
 
-                <div class="package-button">
+                <div>
                     <a href="{{ url_for('package_detail', name=package.name) }}"
                        class="button button--primary align-center button-info">
                         Más información
