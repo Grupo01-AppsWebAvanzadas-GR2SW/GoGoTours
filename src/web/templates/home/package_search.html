@@ -5,39 +5,38 @@
 {% endblock %}
 
 {% block header %}
-    Home GoGoTours
+    Search GoGoTours
+    {% block head_tags %}
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/package.css')}}"/>
+    {% endblock %}
 {% endblock %}
 
 {% block content %}
-    {% for package in packages %}
 
-        <div class="container mt-5">
-            <div class="border p-4">
-                <div class="d-flex">
-                    <!-- Espacio reservado para la imagen promocional -->
-                    <div class="me-4" style="width: 100px; height: 100px; border: 1px solid #ccc;">
-                        <img src="{{ package.image }}" alt="Imagen promocional" width="150" height="100">
-                    </div>
-
-
-                    <div>
-                        <label class="" ></label>
-                        <p>Nombre: {{ package.name }}</p>
-                        <p>Destino: {{ package.destination_place }}</p>
-                        <p>Duración: {{ package.duration }}</p>
-                        <p>Fecha de salida: {{ package.start_date }}</p>
-                    </div>
+    <div class="packages-container">
+        {% for package in packages %}
+            <div class="package-container">
+                <!-- Espacio reservado para la imagen promocional -->
+                <div class="package-image">
+                    <img src="{{ package.image }}" alt="Imagen promocional" width="100%" height="100">
                 </div>
 
-                <div class="d-flex align-items-end">
-                    <a href="{{ url_for('package_detail', name=package.name) }}" class="button button--primary">
+                <div class="package-details">
+                    <label class=""></label>
+                    <p><strong>Nombre:</strong> {{ package.name }}</p>
+                    <p><strong>Destino:</strong> {{ package.destination_place }}</p>
+                    <p><strong>Duración:</strong> {{ package.duration }} días</p>
+                    <p><strong>Fecha de salida:</strong> {{ package.start_date }}</p>
+                </div>
+
+                <div class="package-button">
+                    <a href="{{ url_for('package_detail', name=package.name) }}"
+                       class="button button--primary align-center button-info">
                         Más información
                     </a>
                 </div>
             </div>
-        </div>
-
-
-    {% endfor %}
+        {% endfor %}
+    </div>
 
 {% endblock %}
