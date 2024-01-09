@@ -1,6 +1,10 @@
 from flask_injector import FlaskInjector
 from injector import singleton, Binder
 from google.cloud.firestore import AsyncClient
+
+from src.application.auth.repositories.users_repository_async import UsersRepositoryAsync
+from src.application.auth.services.login_service_async import LoginServiceAsync
+from src.application.auth.services.signup_service_async import SignupServiceAsync
 from src.application.chat.repositories.messages_repository_async import MessagesRepositoryAsync
 from src.application.tourist_packages.repositories.tourist_packages_repository_async import \
     TouristPackagesRepositoryAsync
@@ -8,6 +12,11 @@ from src.application.reserves.repositories.reserve_repository_async import Reser
 from src.application.chat.services.chat_service_async import ChatServiceAsync
 from src.application.tourist_packages.services.tourist_packages_service_async import TouristPackagesServiceAsync
 from src.application.reserves.services.reserve_service_async import ReservesServiceAsync
+from src.infrastructure.firebase.config.config import get_firestore_async
+from src.infrastructure.firebase.auth.repositories.firestore_users_repository_async import FirestoreUsersRepositoryAsync
+from src.infrastructure.services.auth.default_login_service_async import DefaultLoginServiceAsync
+from src.infrastructure.services.auth.default_signup_service_async import DefaultSignupServiceAsync
+from src.infrastructure.services.chat.default_chat_service_async import DefaultChatServiceAsync
 from src.infrastructure.firebase.chat.repositories.firestore_messages_repository_async import \
     FirestoreMessagesRepositoryAsync
 from src.infrastructure.firebase.tourist_packages.repositories.firestore_tourist_packages_repository_async import \
@@ -29,6 +38,9 @@ def configure_binding(binder: Binder) -> Binder:
     binder.bind(TouristPackagesServiceAsync, to=DefaultTouristPackagesServiceAsync, scope=singleton)
     binder.bind(ReservesRepositoryAsync, to=FirestoreReservesRepositoryAsync, scope=singleton)
     binder.bind(ReservesServiceAsync, to=DefaultReservesSeviceAsync, scope=singleton)
+    binder.bind(UsersRepositoryAsync, to=FirestoreUsersRepositoryAsync, scope=singleton)
+    binder.bind(LoginServiceAsync, to=DefaultLoginServiceAsync, scope=singleton)
+    binder.bind(SignupServiceAsync, to=DefaultSignupServiceAsync, scope=singleton)
     return binder
 
 

@@ -98,8 +98,8 @@ class TouristPackage(BaseEntity[str]):
     def cost(self, value: float):
         if not isinstance(value, float):
             raise TypeError('cost must be a float')
-        if value < 1 or value > 100:
-            raise ValueError('cost must be between 1 and 100')
+        if value < 1 or value > 10000:
+            raise ValueError('cost must be between 1 and 10000')
         self._cost = value
 
     @property

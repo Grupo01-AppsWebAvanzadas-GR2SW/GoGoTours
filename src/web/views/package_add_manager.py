@@ -12,7 +12,7 @@ class PackageAddView(MethodView):
 
     async def get(self):
         packages = await self._tourist_packages_service.get_tourist_packages()
-        return render_template("packagesManager/add_Package.html", packages=packages)
+        return render_template("packagesManager/add_Package.html")
 
     async def post(self):
         package_name = request.form.get("packageName")
