@@ -8,6 +8,8 @@ from src.extensions.views_extension import register_views
 
 Flask.url_for.__annotations__ = {}
 app = Flask(__name__, template_folder="web/templates", static_folder="web/static")
+app.config["DEBUG"] = True
+app.config["SECRET_KEY"] = "secret_key"
 initialize_firebase("../config/firebase-credentials.json")
 register_views(app)
 register_dependency_injection(app)

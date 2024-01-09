@@ -3,7 +3,7 @@ from flask.views import MethodView
 from injector import inject
 from src.application.auth.services.login_service_async import LoginServiceAsync
 from src.application.auth.dtos.user_login_request_dto import UserLoginRequestDto
-
+from flask import session
 
 class LoginView(MethodView):
     @inject
@@ -20,7 +20,12 @@ class LoginView(MethodView):
         logged_user = await self._login_service.login(user_dto)
 
         if logged_user:
-            return redirect(url_for("chat"))  # Redirigir a chat si el inicio es exitoso
+            print("aun no falla")
+            session["id"] = logged_user.id
+            print("id= " + str(session["id"]))
+            session['is_admin'] = logged_user.is_admin
+            print(f"id= {bool(str(session['is_admin']))}")
+            return redirect(url_for("home"))  # Redirigir a chat si el inicio es exitoso
         else:
             error_msg = "Inicio de sesión fallido. Inténtalo de nuevo."
             return render_template("auth/login.html", error=error_msg)

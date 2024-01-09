@@ -22,4 +22,4 @@ class SignupView(MethodView):
             return render_template("signup")
         user_dto = UserSignupRequestDto(username=username, email=email, password=password)
         await self._signup_service.signup_user(user_dto)
-        return redirect(url_for("chat"))
+        return redirect(url_for("login"))

@@ -4,17 +4,20 @@ from injector import inject
 from src.application.tourist_packages.services.tourist_packages_service_async import TouristPackagesServiceAsync
 from src.application.tourist_packages.dtos.tourist_packages_request_dto import TouristPackagesRequestDto
 from src.application.tourist_packages.dtos.tourist_packages_response_dto import TouristPackagesResponseDto
-
+from src.extensions.decorations_extension import admin_required
 
 class PackageEditView(MethodView):
+
     @inject
     def __init__(self, tourist_packages_service: TouristPackagesServiceAsync):
         self._tourist_packages_service = tourist_packages_service
 
+    @admin_required
     async def get(self, name):
         package = await self._tourist_packages_service.get_tourist_package_by_name(name)
         return render_template("packagesManager/edit_package.html", package=package)
 
+    @admin_required
     async def post(self, name):
         previous_name = request.form.get("previous_name")
         update_name = request.form.get("updatePackageName")

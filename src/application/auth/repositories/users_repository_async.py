@@ -17,3 +17,12 @@ class UsersRepositoryAsync(GenericRepositoryAsync[User, str], ABC):
     @abstractmethod
     async def create_user(self, user: User) -> User:
         pass
+
+    @abstractmethod
+    async def update_user(self, user: User) -> Optional[User]:
+        pass
+
+    @abstractmethod
+    async def get_user_by_reset_token(self, reset_token: str) -> Optional[User]:
+        pass
+

@@ -1,19 +1,24 @@
 from flask import render_template, request, redirect, url_for
 from flask.views import MethodView
 from injector import inject
+
+from extensions.decorations_extension import admin_required
 from src.application.tourist_packages.services.tourist_packages_service_async import TouristPackagesServiceAsync
 from src.application.tourist_packages.dtos.tourist_packages_request_dto import TouristPackagesRequestDto
 
 
 class PackageAddView(MethodView):
+
     @inject
     def __init__(self, tourist_packages_service: TouristPackagesServiceAsync):
         self._tourist_packages_service = tourist_packages_service
 
+    @admin_required
     async def get(self):
-        packages = await self._tourist_packages_service.get_tourist_packages()
+        # packages = await self._tourist_packages_service.get_tourist_packages()
         return render_template("packagesManager/add_Package.html")
 
+    @admin_required
     async def post(self):
         package_name = request.form.get("packageName")
         package_description = request.form.get("packageDescription")

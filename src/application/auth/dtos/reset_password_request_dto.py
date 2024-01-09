@@ -2,4 +2,5 @@ from dataclasses import dataclass
 
 @dataclass
 class ResetPasswordRequestDto:
-    email: str
+    reset_token: str
+    new_password: str
