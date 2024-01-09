@@ -20,5 +20,9 @@ class TouristPackagesRepositoryAsync(GenericRepositoryAsync[TouristPackage, str]
     async def get_by_name_async(self, name: str) -> TouristPackage:
         pass
 
+    @abstractmethod
+    async def get_by_id_async(self, id: str) -> TouristPackage:
+        pass
+
 
 

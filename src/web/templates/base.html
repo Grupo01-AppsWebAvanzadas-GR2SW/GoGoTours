@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     <script defer>
         let base = `{% block page %}{% endblock %}`.trim();
 
@@ -15,6 +16,9 @@
             document.getElementById(base).classList.toggle("navbar__dropdown-item--active", true);
         })
     </script>
+
+    {% block head_tags %}
+    {% endblock %}
 </head>
 
 <body>
@@ -34,12 +38,12 @@
                 <i class="bi bi-search navbar__search-icon"></i>
             </button>
         </div>
-        <form class="navbar__search" :class="{'navbar__menu--opened': openSearch, 'navbar__menu--closed': !openSearch}">
+        <form action="{{ url_for('package_search', destination_place='') }}" method="GET" class="navbar__search" :class="{'navbar__menu--opened': openSearch, 'navbar__menu--closed': !openSearch}">
             <label for="search" class="form__label"
                 style="visibility: hidden; max-width: 0px; opacity: 0; overflow: hidden;">Encuentra tours hacia tu
                 destino</label>
             <input type="text" placeholder="Encuentra tours hacia tu destino (Quito, Bogotá, etc.)"
-                class="form__input navbar__search-input" id="search" name="search">
+                class="form__input navbar__search-input" id="search" name="destination_place">
             <button type="submit" class="button button--primary">
                 <i class="bi bi-search"></i>
             </button>

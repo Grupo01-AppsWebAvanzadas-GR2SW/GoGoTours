@@ -1,22 +1,21 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Home
+    Resultados de busqueda
 {% endblock %}
 
 {% block header %}
-    Home GoGoTours
+    Search GoGoTours
     {% block head_tags %}
-        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/package.css') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/package.css')}}"/>
     {% endblock %}
 {% endblock %}
 
 {% block content %}
-    <div style="font-size: 2rem; text-align: center"><strong>Paquetes Turisticos</strong></div>
+
     <div class="packages-container">
         {% for package in packages %}
             <div class="package-container">
-
                 <!-- Espacio reservado para la imagen promocional -->
                 <div class="package-image">
                     <img src="{{ package.image }}" alt="Imagen promocional" width="100%" height="100">
@@ -30,7 +29,6 @@
                     <p><strong>Fecha de salida:</strong> {{ package.start_date }}</p>
                 </div>
 
-
                 <div class="package-button">
                     <a href="{{ url_for('package_detail', name=package.name) }}"
                        class="button button--primary align-center button-info">
@@ -41,13 +39,4 @@
         {% endfor %}
     </div>
 
-    <!-- If user is ADMIN  -->
-    <div class="d-flex align-items-end button-info">
-        <a href="addPackage" class=" button  button--primary">Añadir tour +</a>
-    </div>
-
-{% endblock %}
-
-{% block page %}
-    tours
 {% endblock %}
