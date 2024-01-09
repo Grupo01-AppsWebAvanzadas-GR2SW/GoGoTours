@@ -5,7 +5,7 @@
 }
 
 .package-container {
-    width: calc(20% - 20px); /* Para tres columnas con margen */
+    width: calc(20% - 20px);
     height: 350px;
     margin: 10px;
     border: 5px solid #ccc;
@@ -23,7 +23,7 @@
 }
 
 .package-details {
-    height: 150px; /* Establece la altura deseada */
+    height: 150px;
 }
 
 .package-details p {
@@ -37,12 +37,11 @@
 .package-button {
     display: flex;
     flex-grow: 1;
-    flex-direction: column; /* Alinear elementos en columna */
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .button-info {
-    /* Agrega cualquier estilo adicional para tus botones aquí */
-    text-align: center; /* Asegura que el texto esté centrado dentro del botón */
+    text-align: center;
 }
