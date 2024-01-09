@@ -6,50 +6,58 @@
 
 {% block header %}
     Package Manager GoGoTours
+    {% block head_tags %}
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/package.css') }}"/>
+    {% endblock %}
 {% endblock %}
 
 {% block content %}
-    <div class="row d-flex ">
-        <form id="add-package-form" method="post" class="form col-12 d-flex align-items-center">
-            <div class="row">
-                <label class="col-4 form__label" for="name">Nombre del tour:</label>
-                <input class="col-8 form__input" type="text" id="name" name="packageName" required/>
+
+    <p class="package-title">AGREGAR TOUR</p>
+      <div style="max-width: 600px; margin: 0 auto;" class="container">
+        <form id="add-package-form" method="post" style="display: grid; gap: 10px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <label class="form__label" for="name" style="text-align: right;">Nombre del tour:</label>
+                <input class="form__input" type="text" id="name" name="packageName" required/>
             </div>
-            <div>
-                <label class="col-4 form__label" for="description">Descripción del tour:</label>
-                <input class="col-8 form__input" type="text" id="description" name="packageDescription" required/>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <label class="form__label" for="description" style="text-align: right;">Descripción del tour:</label>
+                <input class="form__input" type="text" id="description" name="packageDescription" required/>
             </div>
-            <div>
-                <label class="form__label" for="destination_place">Lugar de destino:</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <label class="form__label" for="destination_place" style="text-align: right;">Lugar de destino:</label>
                 <input class="form__input" type="text" id="destination_place" name="packageDestinationPlace" required/>
             </div>
-            <div>
-                <label class="form__label" for="duration">Duración del tour (días):</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <label class="form__label" for="duration" style="text-align: right;">Duración del tour (días):</label>
                 <input class="form__input" type="number" id="duration" name="packageDuration" required/>
             </div>
-            <div>
-                <label class="form__label" for="max_capacity">Capacidad máxima:</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <label class="form__label" for="max_capacity" style="text-align: right;">Capacidad máxima:</label>
                 <input class="form__input" type="number" step="1" id="max_capacity" name="packageMaxCapacity" required/>
             </div>
-            <div>
-                <label class="form__label" for="cost">Costo del tour ($):</label>
-                <input class="form__input" step="0.01" type="number" id="cost" name="packageCost" required/>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <label class="form__label" for="cost" style="text-align: right;">Costo del tour ($):</label>
+                <input class="form__input" type="number" step="0.01" id="cost" name="packageCost" required/>
             </div>
-            <div>
-                <label class="form__label" for="start_date">Fecha de inicio:</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <label class="form__label" for="start_date" style="text-align: right;">Fecha de inicio:</label>
                 <input class="form__input" type="date" id="start_date" name="packageStateDate" required/>
             </div>
-            <div>
-                <label class="form__label" for="end_date">Fecha final:</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <label class="form__label" for="end_date" style="text-align: right;">Fecha final:</label>
                 <input class="form__input" type="date" id="end_date" name="packageEndDate" required/>
             </div>
-            <div>
-                <label class="form__label" for="url">Imágen (Url):</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <label class="form__label" for="url" style="text-align: right;">Imágen (URL):</label>
                 <input class="form__input" type="url" id="url" name="packageUrl" required/>
             </div>
-            <button class="button button--primary" type="submit" id="send-button">Agregar tour</button>
+            <div style="text-align: center;">
+                <button class="button button--primary" type="submit" style="padding: 10px 80px; margin: 0px auto; ">Agregar tour</button>
+            </div>
         </form>
-    </div>
+      </div>
+
 
 {% endblock %}
 

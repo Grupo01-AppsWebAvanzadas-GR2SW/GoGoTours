@@ -6,21 +6,54 @@
 
 {% block header %}
     Home GoGoTours
+    {% block head_tags %}
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/package.css') }}"/>
+    {% endblock %}
 {% endblock %}
 
 {% block content %}
-    <div>
-        <p>ID: {{ package.id }}</p>
-        <p>Nombre: {{ package.name }}</p>
-        <p>Duración: {{ package.duration }}</p>
-        <p>Fecha de inicio: {{ package.start_date }}</p>
+    <p class="package-title"> {{ package.name }}</p>
+    <div class="container">
+
+        <div class="package-image">
+            <img src="{{ package.image }}" alt="Imagen promocional">
+        </div>
+
+        <div class="package-content">
+            <div class="package-details">
+                <p><strong>Descripción:</strong> {{ package.description }}</p>
+                <p><strong>Destino:</strong> {{ package.destination_place }}</p>
+                <p><strong>Duración:</strong> {{ package.duration }} días</p>
+                <p><strong>Capacidad máxima:</strong> {{ package.max_capacity }} personas</p>
+                <p><strong>Fecha de inicio:</strong> {{ package.start_date }}</p>
+                <p><strong>Fecha de regreso:</strong> {{ package.end_date }}</p>
+                <p><strong>Precio:</strong> {{ package.cost }} $</p>
+            </div>
+            <div style="display: flex">
+                <form id="chat-form" method="post" class="package-button">
+                    <button type="submit" id="send-button" class="button button--primary align-center button-info">
+                        ¡Reserva ahora!
+                    </button>
+                </form>
+                <!-- If user is Loged  -->
+                <div class="package-button">
+                    <a href="/chat" class=" button button--secondary align-center button-info">
+                        Chatea con un Asesor
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <form id="chat-form" method="post">
-        <button type="submit" id="send-button">
-            ¡Reserva ahora!
-        </button>
-    </form>
+    <!-- If user is ADMIN  -->
+    <div class="d-flex align-items-end ">
+        <a href="../edit_package/{{ package.name }}" class=" button  button--secondary">
+            Editar información
+        </a>
+    </div>
+    <div class="d-flex align-items-end ">
+        <a href="/deletePackage/{{ package.name }}" class=" button  button--primary">Eliminar tour</a>
+    </div>
 
 
 {% endblock %}

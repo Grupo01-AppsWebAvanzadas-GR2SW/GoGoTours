@@ -22,69 +22,66 @@
 </head>
 
 <body>
-<header x-data="{ open: false, openSearch: false }" class="navbar">
-    <div class="navbar__main">
-        <button @click="open = !open" class="button navbar__toggle">
-            <i x-show="open" class="bi bi-x-lg navbar__close"></i>
-            <i x-show="!open" class="bi bi-list navbar__open"></i>
-        </button>
-        <a href="" class="navbar__logo">
-            <img class="navbar__logo-image navbar__logo-image--small"
-                 src="{{ url_for('static', filename='assets/logos/gogotours-iso.png') }}"
-                 alt="Logo de GoGoTours">
-            <img class="navbar__logo-image navbar__logo-image--large"
-                 src="{{ url_for('static', filename='./assets/logos/gogotours-logo.png') }}"
-                 alt="Logo de GoGoTours">
-        </a>
-        <button class="button navbar__search-toggle" @click="openSearch = !openSearch">
-            <i class="bi bi-search navbar__search-icon"></i>
-        </button>
-    </div>
-    <form action="{{ url_for('package_search', destination_place='') }}" method="GET" class="navbar__search"
-          :class="{'navbar__menu--opened': openSearch, 'navbar__menu--closed': !openSearch}">
-        <label for="search" class="form__label"
-               style="visibility: hidden; max-width: 0px; opacity: 0; overflow: hidden;">Encuentra tours hacia tu
-            destino</label>
-        <input type="text" placeholder="Encuentra tours hacia tu destino (Quito, Bogotá, etc.)"
-               class="form__input navbar__search-input" id="search" name="destination_place">
-        <button type="submit" class="button button--primary">
-            <i class="bi bi-search"></i>
-        </button>
-    </form>
-    <nav :class="{'navbar__menu--opened': open, 'navbar__menu--closed': !open}" class="navbar__menu">
-        <a href="#" class="navbar__item" id="home">Inicio</a>
-        <a href="#" class="navbar__item" id="tours">Tours</a>
-        <a href="#" class="navbar__item" id="messages">Mensajes</a>
-        <!-- if not user_authenticated-->
-        <div class="navbar__item navbar__buttons">
-            <a href="#" class="navbar__button button button--secondary">Regístrate</a>
-            <a href="#" class="navbar__button button button--primary">Inicia sesión</a>
-        </div>
-        <!-- else -->
-        <div @click.away="open = false" x-data="{ open: false }" class="navbar__item navbar__dropdown">
-            <button @click="open = !open" class="navbar__dropdown-button">
-                <i class="bi bi-person-circle"></i> Perfil
-                <i x-show="!open" class="bi bi-caret-down-fill"></i>
-                <i x-show="open" class="bi bi-caret-up-fill"></i>
+    <header x-data="{ open: false, openSearch: false }" class="navbar">
+        <div class="navbar__main">
+            <button @click="open = !open" class="button navbar__toggle">
+                <i x-show="open" class="bi bi-x-lg navbar__close"></i>
+                <i x-show="!open" class="bi bi-list navbar__open"></i>
             </button>
-            <div x-show="open" class="navbar__dropdown-menu">
-                <a href="#" class="navbar__dropdown-item">
-                    <i class="bi bi-box-arrow-right"></i>
-                    <span>Cerrar sesión</span>
-                </a>
-            </div>
+            <a href="" class="navbar__logo">
+                <img class="navbar__logo-image navbar__logo-image--small" src="{{ url_for('static', filename='assets/logos/gogotours-iso.png') }}"
+                    alt="Logo de GoGoTours">
+                <img class="navbar__logo-image navbar__logo-image--large" src="{{ url_for('static', filename='./assets/logos/gogotours-logo.png') }}"
+                    alt="Logo de GoGoTours">
+            </a>
+            <button class="button navbar__search-toggle" @click="openSearch = !openSearch">
+                <i class="bi bi-search navbar__search-icon"></i>
+            </button>
         </div>
-        <!-- endif -->
-    </nav>
-</header>
+        <form action="{{ url_for('package_search', destination_place='') }}" method="GET" class="navbar__search" :class="{'navbar__menu--opened': openSearch, 'navbar__menu--closed': !openSearch}">
+            <label for="search" class="form__label"
+                style="visibility: hidden; max-width: 0px; opacity: 0; overflow: hidden;">Encuentra tours hacia tu
+                destino</label>
+            <input type="text" placeholder="Encuentra tours hacia tu destino (Quito, Bogotá, etc.)"
+                class="form__input navbar__search-input" id="search" name="destination_place">
+            <button type="submit" class="button button--primary">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
+        <nav :class="{'navbar__menu--opened': open, 'navbar__menu--closed': !open}" class="navbar__menu">
+            <a href="#" class="navbar__item" id="home">Inicio</a>
+            <a href="#" class="navbar__item" id="tours">Tours</a>
+            <a href="#" class="navbar__item" id="messages">Mensajes</a>
+            <!-- if not user_authenticated-->
+            <div class="navbar__item navbar__buttons">
+                <a href="#" class="navbar__button button button--secondary">Regístrate</a>
+                <a href="#" class="navbar__button button button--primary">Inicia sesión</a>
+            </div>
+            <!-- else -->
+            <div @click.away="open = false" x-data="{ open: false }" class="navbar__item navbar__dropdown">
+                <button @click="open = !open" class="navbar__dropdown-button">
+                    <i class="bi bi-person-circle"></i> Perfil
+                    <i x-show="!open" class="bi bi-caret-down-fill"></i>
+                    <i x-show="open" class="bi bi-caret-up-fill"></i>
+                </button>
+                <div x-show="open" class="navbar__dropdown-menu">
+                    <a href="#" class="navbar__dropdown-item">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Cerrar sesión</span>
+                    </a>
+                </div>
+            </div>
+            <!-- endif -->
+        </nav>
+    </header>
 
-<main class="main">
-    {% block content %}{% endblock %}
-</main>
+    <main class="main">
+        {% block content %}{% endblock %}
+    </main>
 
-<footer class="footer">
-    &copy; 2024 Mi Sitio Web
-</footer>
+    <footer class="footer">
+        &copy; 2024 Mi Sitio Web
+    </footer>
 </body>
 
 </html>
