@@ -1,7 +1,9 @@
 from src.web.views.chat_view import ChatView
 from src.web.views.home_view import HomeView
 from src.web.views.package_detail_view import PackageDetailView
-from src.web.views.package_manager import PackageAddView
+from src.web.views.package_add_manager import PackageAddView
+from web.views.package_edit_manager import PackageEditView
+from web.views.package_search_view import PackageSearchView
 
 
 def register_views(app):
@@ -10,6 +12,5 @@ def register_views(app):
     app.add_url_rule('/package_detail/<string:name>', view_func=PackageDetailView.as_view('package_detail'))
     app.add_url_rule('/edit_package/<string:name>', view_func=PackageEditView.as_view('edit_package'))
     app.add_url_rule('/addPackage', view_func=PackageAddView.as_view('add_package'))
-    # app.add_url_rule('/package_search/<string:destination_place>', view_func=PackageSearchView.as_view('package_search'))
     app.add_url_rule('/package_search', view_func=PackageSearchView.as_view('package_search'))
 
