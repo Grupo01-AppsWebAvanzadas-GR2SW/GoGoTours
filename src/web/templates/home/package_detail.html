@@ -29,23 +29,31 @@
                 <p><strong>Fecha de regreso:</strong> {{ package.end_date }}</p>
                 <p><strong>Precio:</strong> {{ package.cost }} $</p>
             </div>
-            <form id="chat-form" method="post" class="package-button">
-                <button type="submit" id="send-button" class="button button--primary align-center button-info">
-                    ¡Reserva ahora!
-                </button>
-            </form>
+            <div style="display: flex">
+                <form id="chat-form" method="post" class="package-button">
+                    <button type="submit" id="send-button" class="button button--primary align-center button-info">
+                        ¡Reserva ahora!
+                    </button>
+                </form>
+                <!-- If user is Loged  -->
+                <div class="package-button">
+                    <a href="/chat" class=" button button--secondary align-center button-info">
+                        Chatea con un Asesor
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
-     <!-- If user is ADMIN  -->
-     <div class="d-flex align-items-end ">
-             <a href="../edit_package/{{ package.name }}" class=" button  button--secondary">
-                 Editar información
-             </a>
-     </div>
+    <!-- If user is ADMIN  -->
     <div class="d-flex align-items-end ">
-             <a href="/deletePackage/{{ package.name }}" class=" button  button--primary">Eliminar tour</a>
-     </div>
+        <a href="../edit_package/{{ package.name }}" class=" button  button--secondary">
+            Editar información
+        </a>
+    </div>
+    <div class="d-flex align-items-end ">
+        <a href="/deletePackage/{{ package.name }}" class=" button  button--primary">Eliminar tour</a>
+    </div>
 
 
 {% endblock %}
