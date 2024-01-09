@@ -2,6 +2,7 @@ from datetime import datetime
 from src.domain.tourist_packages.entities.tourist_package import TouristPackage
 from src.application.tourist_packages.services.tourist_packages_service_async import TouristPackagesServiceAsync
 from src.application.tourist_packages.dtos.tourist_packages_response_dto import TouristPackagesResponseDto
+from src.application.tourist_packages.dtos.tourist_packages_request_dto import TouristPackagesRequestDto
 from src.application.tourist_packages.repositories.tourist_packages_repository_async import \
     TouristPackagesRepositoryAsync
 from injector import inject
@@ -59,13 +60,22 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
             )
         )
 
+    async def edit_package(self, name: str, updated_package: TouristPackagesRequestDto):
+        package = await self._tourist_packages_repository_async.get_by_name_async(name)
 
+        if package:
+            # Actualiza los campos del paquete con los valores proporcionados en updated_package
+            package.name = updated_package.name
+            package.description = updated_package.description
+            package.destination_place = updated_package.destination_place
+            package.duration = updated_package.duration
+            package.max_capacity = updated_package.max_capacity
+            package.cost = updated_package.cost
+            package.start_date = updated_package.start_date
+            package.end_date = updated_package.end_date
+            package.image = updated_package.image
 
-
-
-
-
-
-
-
-
+            await self._tourist_packages_repository_async.update_async(package)
+            return True
+        else:
+            return False
