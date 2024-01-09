@@ -6,23 +6,19 @@ from src.application.auth.repositories.users_repository_async import UsersReposi
 from src.application.auth.services.login_service_async import LoginServiceAsync
 from src.application.auth.services.signup_service_async import SignupServiceAsync
 from src.application.auth.services.reset_password_service_async import ResetPasswordServiceAsync
-from src.application.chat.repositories.messages_repository_async import MessagesRepositoryAsync
+from src.application.chat.repositories.conversations_repository_async import ConversationsRepositoryAsync
 from src.application.tourist_packages.repositories.tourist_packages_repository_async import \
     TouristPackagesRepositoryAsync
 from src.application.reserves.repositories.reserve_repository_async import ReservesRepositoryAsync
 from src.application.chat.services.chat_service_async import ChatServiceAsync
 from src.application.tourist_packages.services.tourist_packages_service_async import TouristPackagesServiceAsync
 from src.application.reserves.services.reserve_service_async import ReservesServiceAsync
-from src.infrastructure.firebase.chat.repositories.firestore_conversations_repository_async import \
-    FirestoreConversationsRepositoryAsync
 from src.infrastructure.firebase.config.config import get_firestore_async
 from src.infrastructure.firebase.auth.repositories.firestore_users_repository_async import FirestoreUsersRepositoryAsync
 from src.infrastructure.services.auth.default_login_service_async import DefaultLoginServiceAsync
 from src.infrastructure.services.auth.default_signup_service_async import DefaultSignupServiceAsync
 from src.infrastructure.services.auth.default_reset_password_service import DefaultResetPasswordServiceAsync
-from src.infrastructure.services.chat.default_chat_service_async import DefaultChatServiceAsync
-from src.infrastructure.firebase.chat.repositories.firestore_messages_repository_async import \
-    FirestoreMessagesRepositoryAsync
+from src.infrastructure.firebase.chat.repositories.firestore_conversations_repository_async import FirestoreConversationsRepositoryAsync
 from src.infrastructure.firebase.tourist_packages.repositories.firestore_tourist_packages_repository_async import \
     FirestoreTouristPackagesRepositoryAsync
 from src.infrastructure.firebase.reserves.repositories.firestore_reserves_repository_async import \
@@ -31,7 +27,6 @@ from src.infrastructure.services.chat.default_chat_service_async import DefaultC
 from src.infrastructure.services.tourist_packages.default_tourist_packages_service_async import \
     DefaultTouristPackagesServiceAsync
 from src.infrastructure.services.reserves.default_reserves_service_async import DefaultReservesSeviceAsync
-from src.infrastructure.firebase.config.config import get_firestore_async
 
 
 def configure_binding(binder: Binder) -> Binder:

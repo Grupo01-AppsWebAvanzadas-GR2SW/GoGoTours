@@ -1,8 +1,9 @@
+from asgiref.sync import async_to_sync
 from flask import render_template, request, redirect, url_for
 from flask.views import MethodView
 from injector import inject
 
-from extensions.decorations_extension import admin_required
+from extensions.decorations_extension import admin_required, admin_required_async
 from src.application.tourist_packages.services.tourist_packages_service_async import TouristPackagesServiceAsync
 from src.application.tourist_packages.dtos.tourist_packages_request_dto import TouristPackagesRequestDto
 
@@ -14,11 +15,12 @@ class PackageAddView(MethodView):
         self._tourist_packages_service = tourist_packages_service
 
     @admin_required
-    async def get(self):
+    def get(self):
         # packages = await self._tourist_packages_service.get_tourist_packages()
         return render_template("packagesManager/add_Package.html")
 
-    @admin_required
+
+    @admin_required_async
     async def post(self):
         package_name = request.form.get("packageName")
         package_description = request.form.get("packageDescription")
@@ -34,9 +36,9 @@ class PackageAddView(MethodView):
             name=package_name,
             description=package_description,
             destination_place=package_destination,
-            duration=package_duration,
-            max_capacity=package_capacity,
-            cost=package_cost,
+            duration=int(package_duration),
+            max_capacity=int(package_capacity),
+            cost=float(package_cost),
             start_date=package_start_Date,
             end_date=package_end_Date,
             image=package_image
