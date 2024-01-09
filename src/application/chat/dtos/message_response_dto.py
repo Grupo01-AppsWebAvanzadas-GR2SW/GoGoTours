@@ -4,7 +4,7 @@ from src.application.utils import format_date_for_chat
 
 
 @dataclass
-class ChatMessageResponseDto:
+class MessageResponseDto:
     def __init__(self, text: str, date_sent: str | datetime):
         self.text = text
         self.date_sent = date_sent
