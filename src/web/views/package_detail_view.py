@@ -1,9 +1,10 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 from flask.views import MethodView
 from injector import inject
 from src.application.tourist_packages.services.tourist_packages_service_async import TouristPackagesServiceAsync
 from src.application.reserves.services.reserve_service_async import ReservesServiceAsync
 from src.application.reserves.dtos.reserves_request_dto import ReservesRequestDto
+from src.extensions.decorations_extension import login_required_async
 
 
 class PackageDetailView(MethodView):
@@ -21,11 +22,11 @@ class PackageDetailView(MethodView):
 
         return render_template("home/package_detail.html", package=package)
 
+    @login_required_async
     async def post(self, name):
         package = await self._tourist_packages_service.get_tourist_package_by_name(name)
         id_tourist_package = package.id
-        # TODO: Obtener id del cliente, por el momento simulamos un dato
-        id_customer = "estaesunaiddeprueba"
+        id_customer = session.get("id")
 
         # print(test)
 

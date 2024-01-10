@@ -20,12 +20,10 @@ class LoginView(MethodView):
         logged_user = await self._login_service.login(user_dto)
 
         if logged_user:
-            print("aun no falla")
             session["id"] = logged_user.id
-            print("id= " + str(session["id"]))
             session['is_admin'] = logged_user.is_admin
-            print(f"id= {bool(str(session['is_admin']))}")
-            return redirect(url_for("home"))  # Redirigir a chat si el inicio es exitoso
+            next_path = request.args.get("next") or url_for("home")
+            return redirect(next_path)
         else:
             error_msg = "Inicio de sesión fallido. Inténtalo de nuevo."
             return render_template("auth/login.html", error=error_msg)
