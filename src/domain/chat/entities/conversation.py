@@ -1,10 +1,17 @@
+from datetime import datetime
 from typing import Dict, Any
 from src.domain.common.entities.base_entity import BaseEntity
 from src.domain.chat.entities.message import Message
 
 
 class Conversation(BaseEntity[str]):
-    def __init__(self, customer_id: str, admin_id: str, messages: list[Message] = (), entity_id: str = ''):
+    def __init__(
+            self,
+            customer_id: str = '',
+            admin_id: str = '',
+            messages: list[Message] = (),
+            entity_id: str = ''
+    ):
         super().__init__(entity_id)
         self._participants: list[str] = [customer_id, admin_id]
         self._messages: list[Message] = list(messages)

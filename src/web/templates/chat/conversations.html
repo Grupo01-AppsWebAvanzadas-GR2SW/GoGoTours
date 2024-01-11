@@ -1,14 +1,10 @@
-{% extends "base.html" %}
+{% extends "chat/chat.html" %}
 
 {% block title %}
-    Chat
+    {{ conversation.recipient_name }} - Mis chats
 {% endblock %}
 
-{% block header %}
-    Chat GoGoTours
-{% endblock %}
-
-{% block content %}
+{% block chat %}
     <div id="chat-box">
         {% for message in messages %}
         <div class="chat-message">

@@ -14,7 +14,7 @@ class ChatServiceAsync(ABC):
         pass
 
     @abstractmethod
-    async def get_user_summary_conversations_async(self, user_id: str) -> list[ConversationSummaryResponseDto]:
+    async def get_user_conversations_summaries_async(self, user_id: str) -> list[ConversationSummaryResponseDto]:
         pass
 
     @abstractmethod

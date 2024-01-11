@@ -24,10 +24,15 @@ class BaseEntity(ABC, Generic[ID]):
     def created_at(self) -> datetime:
         return self._created_at
 
+    @property
+    def updated_at(self) -> Optional[datetime]:
+        return self._updated_at
+
     def set_updated_at_now(self) -> None:
         self._updated_at = datetime.now()
 
     def merge_dict(self, source: Dict[str, Any]) -> None:
+        self._id = source["id"] if 'id' in source else ""
         self._created_at = source["created_at"] if 'created_at' in source else datetime.now()
         self._updated_at = source["updated_at"] if 'updated_at' in source else None
 

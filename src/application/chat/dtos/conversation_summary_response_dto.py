@@ -19,7 +19,7 @@ class ConversationSummaryResponseDto:
         self._last_message_date = format_date_for_chat(last_message_date)
 
     @property
-    def id(self):
+    def conversation_id(self):
         return self._id
 
     @property

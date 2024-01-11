@@ -36,8 +36,7 @@
                     </button>
                 </form>
                 <div class="package-button">
-                    <!-- TODO: Add admin_id parameter -->
-                    <a  class=" button button--secondary align-center button-info">
+                    <a href="{{ url_for("begin_chat", admin_id=package.admin_id) }}" class="button button--secondary align-center button-info">
                         Chatea con un asesor
                     </a>
                 </div>
