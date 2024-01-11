@@ -34,17 +34,18 @@
             </div>
             <div style="display: flex">
                 {% if not session.get("is_admin") %}
-                <form id="chat-form" method="post" class="package-button">
-                    <button type="submit" id="send-button" class="button button--primary align-center button-info">
-                        ¡Reserva ahora!
-                    </button>
-                </form>
-                <div class="package-button">
-                    <!-- TODO: Add admin_id parameter -->
-                    <a  class=" button button--secondary align-center button-info">
-                        Chatea con un asesor
-                    </a>
-                </div>
+                    <form id="chat-form" method="post" class="package-button">
+                        <button type="button" id="reserve-button"
+                                class="button button--primary align-center button-info">
+                            ¡Reserva ahora!
+                        </button>
+                    </form>
+                    <div class="package-button">
+                        <!-- TODO: Add admin_id parameter -->
+                        <a href="#" class="button button--secondary align-center button-info" id="chat-button">
+                            Chatea con un asesor
+                        </a>
+                    </div>
                 {% endif %}
             </div>
         </div>
@@ -52,19 +53,39 @@
 
     <!-- If user is ADMIN  -->
     {% if session.get("is_admin") %}
-    <div class="d-flex align-items-end ">
-        <a href="../edit_package/{{ package.name }}" class="button button--secondary" style="margin-bottom: 5px">
-            <i class="fas fa-edit"></i> Editar información
-        </a>
-    </div>
+        <div class="d-flex align-items-end ">
+            <a href="../edit_package/{{ package.name }}" class="button button--secondary" style="margin-bottom: 5px">
+                <i class="fas fa-edit"></i> Editar información
+            </a>
+        </div>
 
-    <div class="d-flex align-items-end ">
-        <a href="/deletePackage/{{ package.name }}" class="button button--primary">
-            <i class="fas fa-trash"></i> Eliminar tour
-        </a>
-    </div>
+        <div class="d-flex align-items-end ">
+            <a href="/deletePackage/{{ package.name }}" class="button button--primary">
+                <i class="fas fa-trash"></i> Eliminar tour
+            </a>
+        </div>
 
     {% endif %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var reserveButton = document.getElementById('reserve-button');
+            if (reserveButton) {
+                reserveButton.addEventListener('click', function () {
+                    var confirmMessage;
+                    {% if session.get("id") %}
+                        confirmMessage = "¿Estás seguro de que deseas reservar este paquete?";
+                    {% else %}
+                        confirmMessage = "Debes iniciar sesión para continuar con la reserva.";
+                    {% endif %}
+                    if (confirm(confirmMessage)) {
+                        document.getElementById('chat-form').submit();
+                    } else {
+                    }
+                });
+            }
+        });
+    </script>
 
 
 {% endblock %}

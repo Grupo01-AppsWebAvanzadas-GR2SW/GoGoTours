@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, request, redirect, url_for, session, flash
 from flask.views import MethodView
 from injector import inject
 from src.application.tourist_packages.services.tourist_packages_service_async import TouristPackagesServiceAsync
@@ -18,8 +18,6 @@ class PackageDetailView(MethodView):
 
     async def get(self, name):
         package = await self._tourist_packages_service.get_tourist_package_by_name(name)
-        # test_package = await self._tourist_packages_service.get_tourist_packages_by_id("2pOhI3UFNZeVRKVAjRbJ")
-
         return render_template("home/package_detail.html", package=package)
 
     @login_required_async
@@ -27,9 +25,6 @@ class PackageDetailView(MethodView):
         package = await self._tourist_packages_service.get_tourist_package_by_name(name)
         id_tourist_package = package.id
         id_customer = session.get("id")
-
-        # print(test)
-
         message_dto = ReservesRequestDto(id_tourist_package=id_tourist_package, id_customer=id_customer)
         await self._reserves_service.create_reserve(message_dto)
-        return redirect(url_for("chat"))
+        return redirect(url_for("home"))
