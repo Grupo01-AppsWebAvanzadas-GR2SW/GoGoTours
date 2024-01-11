@@ -43,11 +43,13 @@
     </div>
 
     <!-- If user is ADMIN  -->
+    {% if session.get("is_admin") %}
      <div class="d-flex align-items-end button-info">
         <a href="addPackage" class="button button--primary">
             <i class="fas fa-plus" style="margin-right: 5px"></i>  Añadir tour
         </a>
     </div>
+    {% endif %}
 
 
 {% endblock %}
