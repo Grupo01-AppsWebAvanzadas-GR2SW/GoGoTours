@@ -14,7 +14,6 @@
 {% endblock %}
 
 {% block content %}
-
     <p class="package-title"> {{ package.name }}</p>
     <div class="container">
 
@@ -41,11 +40,10 @@
                         </button>
                     </form>
                     <div class="package-button">
-                        <!-- TODO: Add admin_id parameter -->
-                        <a href="#" class="button button--secondary align-center button-info" id="chat-button">
-                            Chatea con un asesor
-                        </a>
-                    </div>
+                    <a href="{{ url_for("begin_chat", admin_id=package.admin_id) }}" class="button button--secondary align-center button-info">
+                        Chatea con un asesor
+                    </a>
+                </div>
                 {% endif %}
             </div>
         </div>

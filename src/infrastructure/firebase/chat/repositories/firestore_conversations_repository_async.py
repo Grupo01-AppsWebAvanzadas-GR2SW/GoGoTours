@@ -1,10 +1,10 @@
-from typing import Type, Optional
+from typing import Optional
 from google.cloud.firestore import AsyncClient
 from google.cloud import firestore
 from injector import inject
 
-from src.application.chat.repositories.conversations_repository_async import ConversationsRepositoryAsync
 from src.domain.chat.entities.conversation import Conversation
+from src.application.chat.repositories.conversations_repository_async import ConversationsRepositoryAsync
 from src.infrastructure.firebase.common.repositories.firestore_generic_repository_async import \
     FirestoreGenericRepositoryAsync
 
@@ -15,27 +15,29 @@ class FirestoreConversationsRepositoryAsync(
 ):
     @inject
     def __init__(self, firestore_client: AsyncClient):
-        super().__init__(firestore_client, 'conversations', Type[Conversation])
+        super().__init__(firestore_client, 'conversations', Conversation)
 
     async def get_conversation_between_users_async(self, customer_id: str, admin_id: str) -> Optional[Conversation]:
-        docs_stream = (self._firestore_client.collection('conversations').where(
-            'participants', '==', [customer_id, admin_id])
-                       .stream())
+        docs_stream = (
+            self._firestore_client.collection('conversations')
+            .where(field_path='participants', op_string='==', value=[customer_id, admin_id])
+            .stream()
+        )
 
-        if docs_stream:
-            conversation = Conversation(customer_id=customer_id, admin_id=admin_id)
+        if docs_stream is not None:
             async for doc in docs_stream:
+                conversation = Conversation('', '')
                 conversation_dict = doc.to_dict()
                 conversation_dict['id'] = doc.id
                 conversation.merge_dict(conversation_dict)
-                break
-            return conversation
+                return conversation
         else:
             return None
 
     async def get_user_conversations_async(self, user_id: str) -> list[Conversation]:
-        query = self._firestore_client.collection('conversations').where(
-            'participants', 'array_contains_any', [user_id])
+        query = (self._firestore_client.collection('conversations')
+                 .order_by('updated_at', direction=firestore.Query.DESCENDING)
+                 .where('participants', 'array_contains_any', [user_id]))
 
         docs_stream = query.stream()
         if docs_stream:
@@ -43,7 +45,8 @@ class FirestoreConversationsRepositoryAsync(
             async for doc in docs_stream:
                 conversation_dict = doc.to_dict()
                 conversation_dict['id'] = doc.id
-                conversation = Conversation(**conversation_dict)
+                conversation = Conversation('', '')
+                conversation.merge_dict(conversation_dict)
                 conversations.append(conversation)
             return conversations
         else:
@@ -58,4 +61,3 @@ class FirestoreConversationsRepositoryAsync(
             return None
 
         return conversation
-
