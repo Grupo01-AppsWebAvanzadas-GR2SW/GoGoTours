@@ -6,7 +6,7 @@ from injector import inject
 
 from src.application.chat.dtos.begin_chat_request_dto import BeginChatRequestDto
 from src.application.chat.services.chat_service_async import ChatServiceAsync
-from src.extensions.decorations_extension import admin_forbidden_async
+from src.extensions.decorations_extension import admin_forbidden_async, login_required_async
 
 
 class BeginChatView(MethodView):
@@ -14,6 +14,7 @@ class BeginChatView(MethodView):
     def __init__(self, chat_service: ChatServiceAsync):
         self._chat_service = chat_service
 
+    @login_required_async
     @admin_forbidden_async
     async def get(self):
         try:

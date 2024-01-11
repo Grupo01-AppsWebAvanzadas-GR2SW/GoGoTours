@@ -24,7 +24,7 @@ class LoginView(MethodView):
         if logged_user:
             session["id"] = logged_user.id
             session['is_admin'] = logged_user.is_admin
-            next_path = request.args.get("next") or url_for("home")
+            next_path = request.args.get("next_path") or url_for("home")
             return redirect(next_path)
         else:
             error_msg = "Inicio de sesión fallido. Inténtalo de nuevo."

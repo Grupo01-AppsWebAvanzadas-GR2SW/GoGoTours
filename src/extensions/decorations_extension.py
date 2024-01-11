@@ -53,7 +53,10 @@ def login_required(func):
     @wraps(func)
     def decorated_view(*args, **kwargs):
         if session.get('id') is None:
-            return redirect(url_for("login", next=request.path))
+            next_path: str = request.path
+            if request.query_string:
+                next_path += '?' + request.query_string.decode('utf-8')
+            return redirect(url_for("login", next=next_path))
         return func(*args, **kwargs)
 
     return decorated_view
@@ -63,7 +66,10 @@ def login_required_async(func):
     @wraps(func)
     async def decorated_view(*args, **kwargs):
         if session.get('id') is None:
-            return redirect(url_for("login", next=request.path))
+            next_path: str = request.path
+            if request.query_string:
+                next_path += '?' + request.query_string.decode('utf-8')
+            return redirect(url_for("login", next=next_path))
         return await func(*args, **kwargs)
 
     return decorated_view

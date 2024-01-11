@@ -5,17 +5,47 @@
 {% endblock %}
 
 {% block chat %}
-    <div id="chat-box">
-        {% for message in messages %}
-        <div class="chat-message">
-            {{ message.date_sent }} - {{ message.text }}
+    <div id="chat__messages" class="chat__messages">
+        <div class="chat__messages-container">
+            {% for message in conversation.messages %}
+                <div class="chat__message {% if message.sender_id == session['id'] %} chat__message--me {% else %} chat__message--other {% endif %}">
+                    <div class="chat__message-text">
+                        {{ message.text }}
+                    </div>
+                    <div class="chat__message-time">
+                        {{ message.date_sent }}
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        <form class="chat__form" method="post">
+            <label for="message-input" style="visibility: hidden; max-width: 0">Escribe un mensaje</label>
+            <input type="text" id="message-input" placeholder="Escribe un mensaje..." name="message" required
+                   class="form__input">
+            <button type="submit" id="send-button" class="button button--primary">
+                <i class="bi bi-send-fill"></i>
+            </button>
+        </form>
     </div>
-    <form id="chat-form" method="post">
-        <input type="text" id="message-input" placeholder="Escribe un mensaje..." name="message" required>
-        <button type="submit" id="send-button">Enviar</button>
-    </form>
+    <script src="https://cdn.socket.io/4.7.3/socket.io.min.js" integrity="sha384-+miq58Ltmjm+SSP5g8Ok6dpMO/6R4n8xe/x1Yj0Bdb9kiEz25LTnWv/GZQTRQamg" crossorigin="anonymous"></script>
+    <script defer>
+        //Join to websocket at room conversation_id
+        /*
+        This is the method in the back: def on_connect(conversation_id: str):
+        username = session['username'] or None
+        if username is None:
+        return
+
+        room = conversation_id
+        join_room(room)
+        */
+        const socket = io()
+        socket.connect()
+
+        socket.on('connect', () => {
+            console.log("Connected")
+        })
+    </script>
 {% endblock %}
 
 {% block page %}

@@ -10,6 +10,7 @@ from src.application.chat.dtos.conversation_summary_response_dto import Conversa
 from src.application.chat.dtos.message_response_dto import MessageResponseDto
 from src.application.chat.dtos.send_message_request_dto import SendMessageRequestDto
 from src.application.chat.repositories.conversations_repository_async import ConversationsRepositoryAsync
+from src.application.chat.repositories.messages_repository_async import MessagesRepositoryAsync
 from src.application.chat.services.chat_service_async import ChatServiceAsync
 from src.domain.chat.entities.conversation import Conversation
 from src.domain.chat.entities.message import Message
@@ -17,9 +18,14 @@ from src.domain.chat.entities.message import Message
 
 class DefaultChatServiceAsync(ChatServiceAsync):
     @inject
-    def __init__(self, conversations_repository_async: ConversationsRepositoryAsync,
-                 user_repository_async: UsersRepositoryAsync):
+    def __init__(
+            self,
+            conversations_repository_async: ConversationsRepositoryAsync,
+            messages_repository_async: MessagesRepositoryAsync,
+            user_repository_async: UsersRepositoryAsync
+    ):
         self._conversations_repository_async = conversations_repository_async
+        self._messages_repository_async = messages_repository_async
         self._user_repository_async = user_repository_async
 
     async def begin_chat_async(self, request: BeginChatRequestDto) -> ConversationResponseDto:
@@ -39,9 +45,12 @@ class DefaultChatServiceAsync(ChatServiceAsync):
                 messages=[
                     MessageResponseDto(
                         text=message.text,
-                        date_sent=message.created_at
+                        date_sent=message.created_at,
+                        sender_id=message.sender_id
                     )
-                    for message in possible_conversation.messages
+                    for message in await self._messages_repository_async.get_messages_for_conversation_async(
+                        possible_conversation.id
+                    )
                 ]
             )
 
@@ -64,12 +73,16 @@ class DefaultChatServiceAsync(ChatServiceAsync):
             recipient = await self._user_repository_async.get_async(recipient_id)
             if recipient is None:
                 continue
+            last_message: Optional[
+                Message] = await self._messages_repository_async.get_last_message_for_conversation_async(
+                conversation.id
+            )
             list.append(
                 conversation_summaries,
                 ConversationSummaryResponseDto(
                     conversation_id=conversation.id,
                     recipient_name=recipient.username,
-                    last_message=conversation.messages[-1].text if len(conversation.messages) > 0 else "",
+                    last_message=last_message.text if last_message is not None else '',
                     last_message_date=conversation.updated_at or conversation.created_at
                 )
             )
@@ -95,9 +108,12 @@ class DefaultChatServiceAsync(ChatServiceAsync):
             messages=[
                 MessageResponseDto(
                     text=message.text,
-                    date_sent=message.created_at
+                    date_sent=message.created_at,
+                    sender_id=message.sender_id
                 )
-                for message in conversation.messages
+                for message in await self._messages_repository_async.get_messages_for_conversation_async(
+                    conversation_request.conversation_id
+                )
             ]
         )
 
@@ -109,10 +125,12 @@ class DefaultChatServiceAsync(ChatServiceAsync):
         if conversation is None:
             raise Exception("Conversation not found")
 
-        conversation.messages.append(Message(
-            text=message.message,
-            sender_id=message.sender_id,
-            conversation_id=message.conversation_id
-        ))
-
+        await self._messages_repository_async.add_async(
+            Message(
+                conversation_id=message.conversation_id,
+                sender_id=message.sender_id,
+                text=message.message
+            )
+        )
+        print(f"Sending message: {message} to conversation: {conversation.id}")
         await self._conversations_repository_async.update_async(conversation)
