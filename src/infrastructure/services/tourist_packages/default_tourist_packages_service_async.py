@@ -26,7 +26,8 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
             cost=package.cost,
             start_date=package.start_date,
             end_date=package.end_date,
-            image=package.image
+            image=package.image,
+            admin_id=package.admin_id
         ) for package in packages]
 
     async def get_tourist_package_by_name(self, name: str) -> TouristPackagesResponseDto:
@@ -42,7 +43,8 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
             cost=package.cost,
             start_date=package.start_date,
             end_date=package.end_date,
-            image=package.image
+            image=package.image,
+            admin_id=package.admin_id
         )
 
     async def get_tourist_packages_by_id(self, id: str) -> TouristPackagesResponseDto:
@@ -57,10 +59,11 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
             max_capacity=package.max_capacity,
             cost=package.cost,
             start_date=package.start_date,
-            end_date=package.end_date
+            end_date=package.end_date,
+            admin_id=package.admin_id
         )
 
-    async def add_package(self, tourist_package: TouristPackagesResponseDto):
+    async def add_package(self, tourist_package: TouristPackagesRequestDto):
         await self._tourist_packages_repository_async.add_async(
             TouristPackage(
                 name=tourist_package.name,
@@ -71,7 +74,8 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
                 cost=tourist_package.cost,
                 start_date=tourist_package.start_date,
                 end_date=tourist_package.end_date,
-                image=tourist_package.image
+                image=tourist_package.image,
+                admin_id=tourist_package.admin_id
             )
         )
 
@@ -89,6 +93,7 @@ class DefaultTouristPackagesServiceAsync(TouristPackagesServiceAsync):
             package.start_date = updated_package.start_date
             package.end_date = updated_package.end_date
             package.image = updated_package.image
+            package.admin_id = updated_package.admin_id
 
             await self._tourist_packages_repository_async.update_async(package)
             return True

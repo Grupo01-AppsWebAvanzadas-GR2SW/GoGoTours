@@ -6,7 +6,7 @@ class TouristPackage(BaseEntity[str]):
 
     def __init__(self, name: str = '', description: str = '', destination_place: str = '', duration: int = 0,
                  max_capacity: int = 0, cost: float = 0, start_date: str = '', end_date: str = '', entity_id: str = '',
-                 image: str = ''):
+                 image: str = '', admin_id: str = ''):
         super().__init__(entity_id)
         self._name = name
         self._description = description
@@ -17,6 +17,7 @@ class TouristPackage(BaseEntity[str]):
         self._start_date = start_date
         self._end_date = end_date
         self.image = image
+        self.admin_id = admin_id
 
     @property
     def image(self) -> str:
@@ -27,6 +28,16 @@ class TouristPackage(BaseEntity[str]):
         if not isinstance(value, str):
             raise TypeError('image url must be a string')
         self._image = value
+
+    @property
+    def admin_id(self) -> str:
+        return self._admin_id
+
+    @admin_id.setter
+    def admin_id(self, value: str):
+        if not isinstance(value, str):
+            raise TypeError('admin id must be a string')
+        self._admin_id = value
 
     # getter para el nombre
     @property
@@ -137,6 +148,7 @@ class TouristPackage(BaseEntity[str]):
         self._start_date = source["start_date"] if 'start_date' in source else ''
         self._end_date = source["end_date"] if 'end_date' in source else ''
         self._image = source["image"] if 'image' in source else ''
+        self._admin_id = source["admin_id"] if 'admin_id' in source else ''
 
     def to_dict(self) -> Dict[str, Any]:
         base_dict = super().to_dict()
@@ -149,4 +161,5 @@ class TouristPackage(BaseEntity[str]):
         base_dict["start_date"] = self._start_date
         base_dict["end_date"] = self._end_date
         base_dict["image"] = self._image
+        base_dict["admin_id"] = self._admin_id
         return base_dict

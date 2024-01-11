@@ -14,3 +14,5 @@ class TouristPackagesResponseDto:
     start_date: datetime
     end_date: datetime
     image: str
+    admin_id: str
+
