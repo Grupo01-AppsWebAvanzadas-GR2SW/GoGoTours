@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 from flask.views import MethodView
 from injector import inject
 from src.application.auth.services.reset_password_service_async import ResetPasswordServiceAsync
@@ -11,6 +11,8 @@ class ResetPasswordView(MethodView):
         self._reset_password_service = reset_password_service
 
     def get(self):
+        if session.get("id") is not None:
+            return redirect(url_for("home"))
         return render_template("auth/reset_password.html")
 
     async def post(self):

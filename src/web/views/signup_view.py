@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 from flask.views import MethodView
 from injector import inject
 from src.application.auth.services.signup_service_async import SignupServiceAsync
@@ -11,6 +11,8 @@ class SignupView(MethodView):
         self._signup_service = signup_service
 
     def get(self):
+        if session.get("id") is not None:
+            return redirect(url_for("home"))
         return render_template("auth/signup.html")
 
     async def post(self):

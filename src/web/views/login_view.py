@@ -11,6 +11,8 @@ class LoginView(MethodView):
         self._login_service = login_service
 
     def get(self):
+        if session.get("id") is not None:
+            return redirect(url_for("home"))
         return render_template("auth/login.html")
 
     async def post(self):
