@@ -28,7 +28,7 @@
                 <i x-show="open" class="bi bi-x-lg navbar__close"></i>
                 <i x-show="!open" class="bi bi-list navbar__open"></i>
             </button>
-            <a href="" class="navbar__logo">
+            <a href="{{ url_for("home") }}" class="navbar__logo">
                 <img class="navbar__logo-image navbar__logo-image--small" src="{{ url_for('static', filename='assets/logos/gogotours-iso.png') }}"
                     alt="Logo de GoGoTours">
                 <img class="navbar__logo-image navbar__logo-image--large" src="{{ url_for('static', filename='./assets/logos/gogotours-logo.png') }}"
@@ -49,15 +49,16 @@
             </button>
         </form>
         <nav :class="{'navbar__menu--opened': open, 'navbar__menu--closed': !open}" class="navbar__menu">
-            <a href="#" class="navbar__item" id="home">Inicio</a>
-            <a href="#" class="navbar__item" id="tours">Tours</a>
-            <a href="#" class="navbar__item" id="messages">Mensajes</a>
-            <!-- if not user_authenticated-->
+            <a href="{{ url_for("home") }}" class="navbar__item" id="home">Inicio</a>
+            {% if session.get("id") %}
+            <a href="{{ url_for("chat") }}" class="navbar__item" id="messages">Mensajes</a>
+            {% endif %}
+            {% if not session.get("id") %}
             <div class="navbar__item navbar__buttons">
-                <a href="#" class="navbar__button button button--secondary">Regístrate</a>
-                <a href="#" class="navbar__button button button--primary">Inicia sesión</a>
+                <a href="{{ url_for("signup") }}" class="navbar__button button button--secondary">Regístrate</a>
+                <a href="{{ url_for("login") }}" class="navbar__button button button--primary">Inicia sesión</a>
             </div>
-            <!-- else -->
+            {% else %}
             <div @click.away="open = false" x-data="{ open: false }" class="navbar__item navbar__dropdown">
                 <button @click="open = !open" class="navbar__dropdown-button">
                     <i class="bi bi-person-circle"></i> Perfil
@@ -71,7 +72,7 @@
                     </a>
                 </div>
             </div>
-            <!-- endif -->
+            {% endif %}
         </nav>
     </header>
 
