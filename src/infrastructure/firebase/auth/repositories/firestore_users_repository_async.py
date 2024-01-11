@@ -10,6 +10,22 @@ import bcrypt
 
 
 class FirestoreUsersRepositoryAsync(FirestoreGenericRepositoryAsync[User, str], UsersRepositoryAsync):
+    async def get_user_by_reset_token(self, token: str) -> Optional[User]:
+        user_ref = self._firestore_client.collection('users').where('token', '==', token).limit(1)
+        user_snapshot = await user_ref.get()
+
+        for doc in user_snapshot:
+            user_data = doc.to_dict()
+            user_data['id'] = doc.id
+            user = User(
+                entity_id=doc.id,
+            )
+            user.merge_dict(user_data)
+
+            return user
+
+        return None
+
     @inject
     def __init__(self, firestore_client: AsyncClient):
         super().__init__(firestore_client, 'users', User)  # nombre de la colección
@@ -44,14 +60,22 @@ class FirestoreUsersRepositoryAsync(FirestoreGenericRepositoryAsync[User, str], 
         return user
 
     async def update_user(self, user: User) -> Optional[User]:
-        user_to_update = await self.session.query(User).filter_by(id=user.id).first()
-        if user_to_update:
-            user_data = user_to_update.to_dict()
-            await self.session.commit()
-            return user_to_update
+        user_to_update_ref = self._firestore_client.collection('users').document(user.id)
+        user_data = user.to_dict()
 
-        return None
+        await user_to_update_ref.update(user_data)
+
+        return user
 
     async def get_user_by_reset_token(self, reset_token: str) -> Optional[User]:
         user_with_token = await self.session.query(User).filter_by(reset_token=reset_token).first()
         return user_with_token
+
+    async def check_user_exists(self, email: str) -> bool:
+        user_ref = self._firestore_client.collection('users').where('email', '==', email).limit(1)
+        user_snapshot = await user_ref.get()
+        return len(user_snapshot) > 0
+
+    async def generate_reset_token(self, email):
+        pass
+

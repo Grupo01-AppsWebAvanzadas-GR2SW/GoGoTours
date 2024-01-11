@@ -9,7 +9,6 @@
     {% block head_tags %}
         <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/card.css') }}"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
     {% endblock %}
 {% endblock %}
 
@@ -45,7 +44,7 @@
     <!-- If user is ADMIN  -->
     {% if session.get("is_admin") %}
      <div class="d-flex align-items-end button-info">
-        <a href="addPackage" class="button button--primary">
+        <a href="/addPackage" class="button button--primary">
             <i class="fas fa-plus" style="margin-right: 5px"></i>  Añadir tour
         </a>
     </div>

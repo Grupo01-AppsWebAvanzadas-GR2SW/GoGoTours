@@ -18,14 +18,14 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="chat__form">
+        <form class="chat__form" method="post">
             <label for="message-input" style="visibility: hidden; max-width: 0">Escribe un mensaje</label>
             <input type="text" id="message-input" placeholder="Escribe un mensaje..." name="message" required
                    class="form__input">
             <button type="submit" id="send-button" class="button button--primary">
                 <i class="bi bi-send-fill"></i>
             </button>
-        </div>
+        </form>
     </div>
     <script src="https://cdn.socket.io/4.7.3/socket.io.min.js" integrity="sha384-+miq58Ltmjm+SSP5g8Ok6dpMO/6R4n8xe/x1Yj0Bdb9kiEz25LTnWv/GZQTRQamg" crossorigin="anonymous"></script>
     <script defer>

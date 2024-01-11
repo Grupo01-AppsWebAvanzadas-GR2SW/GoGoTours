@@ -7,13 +7,12 @@
 {% block header %}
     Search GoGoTours
     {% block head_tags %}
-        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/package.css') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/card.css') }}"/>
     {% endblock %}
 {% endblock %}
 
 {% block content %}
-
-     <p class="package-title">Resultados encontrados</p>
+    <div style="font-size: 2rem; text-align: center"><strong>Resultados encontrados</strong></div>
     <div class="packages-container">
         {% for package in packages %}
             <div class="package-container">
