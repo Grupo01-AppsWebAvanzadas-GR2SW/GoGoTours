@@ -45,5 +45,5 @@ class PackageEditView(MethodView):
             admin_id=update_admin_id
         )
         await self._tourist_packages_service.edit_package(previous_name, update_package_dto)
-        flash("Los datos del paquete se actualizaron correctamente")
-        return redirect(url_for("home"))
+        return redirect(url_for('package_detail', name=update_name))
+
