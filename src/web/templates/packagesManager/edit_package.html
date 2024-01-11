@@ -8,10 +8,21 @@
     Package Manager GoGoTours
     {% block head_tags %}
         <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/package.css') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/popup.css') }}"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
     {% endblock %}
 {% endblock %}
 
 {% block content %}
+
+     <div id="popup" class="popup">
+        <div class="popup-content">
+            <i class="fas fa-check-circle"></i>
+            <p>Paquete actualizado correctamente</p>
+        </div>
+    </div>
 
     <p class="package-title">EDITAR DATOS</p>
      <div style="max-width: 600px; margin: 0 auto;" class="container">
@@ -38,10 +49,44 @@
                 <input class="form__input" type="url" name="updatePackageUrl" required value="{{ package.image }}"/>
             </div>
             <div style="text-align: center;">
-                <button class="button button--primary" type="submit" style="padding: 8px 16px;">Actualizar información</button>
+                <button id="btn-editar" class="button button--primary" type="submit" style="padding: 8px 16px;">Actualizar información</button>
             </div>
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var popup = document.getElementById('popup');
+            var btnEditar = document.getElementById('btn-editar');
+            function validarFormulario() {
+                var campos = document.getElementById('edit-package-form').elements;
+                for (var i = 0; i < campos.length; i++) {
+                    if (campos[i].type !== 'submit' && campos[i].type !== 'hidden') {
+                        if (campos[i].value.trim() === '') {
+                            return false;
+                        }
+                    }
+                }
+
+                return true;
+            }
+
+            btnEditar.addEventListener('click', function (event) {
+                var formularioValido = validarFormulario();
+
+                if (formularioValido) {
+                    popup.style.display = 'block';
+                    setTimeout(function () {
+                        popup.style.display = 'none';
+                    }, 8000);
+                } else {
+                    event.preventDefault();
+                    alert('Por favor, complete todos los campos correctamente.');
+                }
+            });
+        });
+    </script>
+
 {% endblock %}
 
 {% block page %}

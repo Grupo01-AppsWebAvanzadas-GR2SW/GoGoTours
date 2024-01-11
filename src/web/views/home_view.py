@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from datetime import datetime
 from flask.views import MethodView
 from injector import inject
