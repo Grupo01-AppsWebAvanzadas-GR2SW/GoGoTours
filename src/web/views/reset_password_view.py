@@ -16,15 +16,17 @@ class ResetPasswordView(MethodView):
         return render_template("auth/reset_password.html")
 
     async def post(self):
-        reset_token = request.form.get("reset_token")
-        new_password = request.form.get("new_password")
+        email = request.form.get("email")
 
-        reset_request = ResetPasswordRequestDto(reset_token=reset_token, new_password=new_password)
+        user_exists = await self._reset_password_service.check_user_exists(email)
+        if not user_exists:
+            return render_template("auth/reset_password.html",
+                                   error="El correo electrónico proporcionado no está registrado.")
 
-        success = await self._reset_password_service.reset_password(reset_token, new_password)
+        # Generar un token de reseteo de contraseña (puedes usar Firebase Authentication para esto)
+        reset_token = await self._reset_password_service.generate_reset_token(email)
 
-        if success:
-            return redirect(url_for("login"))  # Redirigir al inicio de sesión después del restablecimiento
-        else:
-            error_msg = "Error al restablecer la contraseña. Inténtalo de nuevo."
-            return render_template("auth/reset_password.html", error=error_msg)
+        # Enviar el token al correo del usuario (Firebase Authentication o servicios de email)
+        await self._reset_password_service.send_reset_email(email, reset_token)
+
+        return redirect(url_for('reset_password_successful'))

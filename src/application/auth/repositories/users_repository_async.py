@@ -23,6 +23,13 @@ class UsersRepositoryAsync(GenericRepositoryAsync[User, str], ABC):
         pass
 
     @abstractmethod
-    async def get_user_by_reset_token(self, reset_token: str) -> Optional[User]:
+    async def get_user_by_reset_token(self, token: str) -> Optional[User]:
         pass
 
+    @abstractmethod
+    async def generate_reset_token(self, email):
+        pass
+
+    @abstractmethod
+    async def check_user_exists(self, email: str) -> bool:
+        pass

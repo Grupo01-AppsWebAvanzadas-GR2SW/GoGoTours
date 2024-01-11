@@ -14,4 +14,3 @@ class LoginServiceAsync(ABC):
     @abstractmethod
     async def get_username(self, user_id: str) -> UserResponseDto:
         pass
-

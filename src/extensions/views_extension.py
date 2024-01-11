@@ -2,12 +2,14 @@ from src.web.views.begin_chat_view import BeginChatView
 from src.web.views.chat_view import ChatView
 from src.web.views.conversation_view import ConversationView
 from src.web.views.home_view import HomeView
+from src.web.views.logout_view import LogoutView
 from src.web.views.package_detail_view import PackageDetailView
 from src.web.views.package_add_manager import PackageAddView
 from src.web.views.package_delete_view import PackageDeleteView
 from src.web.views.package_edit_manager import PackageEditView
 from src.web.views.package_search_view import PackageSearchView
 from src.web.views.login_view import LoginView
+from src.web.views.reset_password_successful_view import ResetPasswordSuccessfulView
 from src.web.views.signup_view import SignupView
 from src.web.views.reset_password_view import ResetPasswordView
 
@@ -26,4 +28,8 @@ def register_views(app):
 
     app.add_url_rule('/login', view_func=LoginView.as_view('login'))
     app.add_url_rule('/signup', view_func=SignupView.as_view('signup'))
+
     app.add_url_rule('/reset_password', view_func=ResetPasswordView.as_view('reset_password'))
+    app.add_url_rule('/logout', view_func=LogoutView.as_view('logout'))
+    app.add_url_rule('/reset_password_successful', view_func=ResetPasswordSuccessfulView.as_view(
+        'reset_password_successful'))

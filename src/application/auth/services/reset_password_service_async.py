@@ -6,16 +6,22 @@ from src.application.auth.dtos.reset_password_request_dto import ResetPasswordRe
 
 class ResetPasswordServiceAsync(ABC):
     @abstractmethod
-    async def request_reset_password(self, reset_request: ResetPasswordRequestDto) -> None:
-        """
-        Envía un correo electrónico o mensaje para solicitar el restablecimiento de la contraseña.
-        """
+    async def request_reset_password(self, email: str) -> None:
         pass
 
     @abstractmethod
     async def reset_password(self, reset_token: str, new_password: str) -> bool:
-        """
-        Restablece la contraseña del usuario utilizando un token de reinicio y la nueva contraseña.
-        Retorna un booleano indicando si el restablecimiento fue exitoso.
-        """
         pass
+
+    @abstractmethod
+    async def check_user_exists(self, email):
+        pass
+
+    @abstractmethod
+    async def generate_reset_token(self, email):
+        pass
+
+    @abstractmethod
+    async def send_reset_email(self, email, reset_token):
+        pass
+
