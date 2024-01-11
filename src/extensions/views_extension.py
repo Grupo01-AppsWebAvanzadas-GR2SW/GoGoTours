@@ -13,6 +13,7 @@ from src.web.views.reset_password_view import ResetPasswordView
 def register_views(app):
     # Añadir la vista de chat con el decorador admin_required
     app.add_url_rule('/chat', view_func=ChatView.as_view('chat'))
+    app.add_url_rule('/', view_func=HomeView.as_view('default'))
     app.add_url_rule('/home', view_func=HomeView.as_view('home'))
     app.add_url_rule('/package_detail/<string:name>', view_func=PackageDetailView.as_view('package_detail'))
     app.add_url_rule('/edit_package/<string:name>', view_func=PackageEditView.as_view('edit_package'))
