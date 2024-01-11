@@ -8,12 +8,13 @@
     Home GoGoTours
     {% block head_tags %}
         <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/package.css') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/base/popup.css') }}"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
     {% endblock %}
 {% endblock %}
 
 {% block content %}
+
     <p class="package-title"> {{ package.name }}</p>
     <div class="container">
 
@@ -32,6 +33,7 @@
                 <p><strong>Precio:</strong> {{ package.cost }} $</p>
             </div>
             <div style="display: flex">
+                {% if not session.get("is_admin") %}
                 <form id="chat-form" method="post" class="package-button">
                     <button type="submit" id="send-button" class="button button--primary align-center button-info">
                         ¡Reserva ahora!
@@ -43,6 +45,7 @@
                         Chatea con un asesor
                     </a>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
