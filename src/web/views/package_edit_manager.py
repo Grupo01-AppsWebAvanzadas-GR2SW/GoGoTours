@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, request, redirect, url_for, session, flash
 from flask.views import MethodView
 from injector import inject
 from src.application.tourist_packages.services.tourist_packages_service_async import TouristPackagesServiceAsync
@@ -45,4 +45,5 @@ class PackageEditView(MethodView):
             admin_id=update_admin_id
         )
         await self._tourist_packages_service.edit_package(previous_name, update_package_dto)
+        flash("Los datos del paquete se actualizaron correctamente")
         return redirect(url_for("home"))
