@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 from flask.views import MethodView
 from injector import inject
 from src.application.chat.services.chat_service_async import ChatServiceAsync
@@ -11,11 +11,6 @@ class ChatView(MethodView):
         self._chat_service = chat_service
 
     async def get(self):
-        messages = await self._chat_service.get_chat_messages()
-        return render_template("chat/chat.html", messages=messages)
-
-    async def post(self):
-        message = request.form.get("message")
-        message_dto = SendMessageRequestDto(message=message)
-        await self._chat_service.send_message(message_dto)
-        return redirect(url_for("chat"))
+        user_id = session.get("id")
+        conversations_summaries = await self._chat_service.get_user_conversations_summaries_async(user_id)
+        return render_template("chat/chat.html", conversations_summaries=conversations_summaries)

@@ -22,8 +22,9 @@ class FirestoreGenericRepositoryAsync(GenericRepositoryAsync, Generic[T, ID]):
         
         if document_snapshot.exists:
             entity = self._entity_constructor()
-            entity.id = document_snapshot.id
-            entity.merge_dict(document_snapshot.to_dict())
+            entity_dict = document_snapshot.to_dict()
+            entity_dict["id"] = document_snapshot.id
+            entity.merge_dict(entity_dict)
             return entity
         
         return None
@@ -36,8 +37,8 @@ class FirestoreGenericRepositoryAsync(GenericRepositoryAsync, Generic[T, ID]):
 
             async for document_snapshot in documents_stream:
                 data = document_snapshot.to_dict()
+                data["id"] = document_snapshot.id
                 entity = self._entity_constructor()
-                entity.id = document_snapshot.id
                 entity.merge_dict(data)
                 entities.append(entity)
 
@@ -61,6 +62,7 @@ class FirestoreGenericRepositoryAsync(GenericRepositoryAsync, Generic[T, ID]):
 
     async def update_async(self, item: T) -> None:
         document_ref = self._firestore_client.collection(self._collection_name).document(str(item.id))
+        item.set_updated_at_now()
         await document_ref.update(item.to_dict())
 
     async def update_many_async(self, items: list[T]) -> None:
@@ -69,6 +71,7 @@ class FirestoreGenericRepositoryAsync(GenericRepositoryAsync, Generic[T, ID]):
 
         for item in items:
             document_ref = collection_ref.document(str(item.id))
+            item.set_updated_at_now()
             batch.update(document_ref, item.to_dict())
 
         await batch.commit()
